@@ -25,9 +25,14 @@ services:
       - docmost
     ports:
       - "127.0.0.1:3101:80"
+      - "127.0.0.1:3090:81"
     restart: unless-stopped
+    networks:
+      - default
+      - llm
     volumes:
       - ./embed.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./doc-panel.js:/etc/nginx/doc-panel.js:ro
 
   db:
     image: postgres:18
@@ -45,6 +50,11 @@ services:
     restart: unless-stopped
     volumes:
       - redis_data:/data
+
+networks:
+  llm:
+    external: true
+    name: llm-stack_default
 
 volumes:
   docmost:
