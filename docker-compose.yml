@@ -19,6 +19,16 @@ services:
     volumes:
       - docmost:/app/data/storage
 
+  embed:
+    image: nginx:1.29-alpine
+    depends_on:
+      - docmost
+    ports:
+      - "127.0.0.1:3101:80"
+    restart: unless-stopped
+    volumes:
+      - ./embed.conf:/etc/nginx/conf.d/default.conf:ro
+
   db:
     image: postgres:18
     environment:
