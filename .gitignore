@@ -1,0 +1,4 @@
+.env
+admin-credentials.txt
+__pycache__/
+.venv/
